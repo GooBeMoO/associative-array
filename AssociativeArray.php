@@ -161,17 +161,26 @@ class AssociativeArray implements ArrayAccess, Countable, IteratorAggregate
      */
     public function orderBy($keys, $directions = 'asc')
     {
+        $keys = [
+            ['id' => 1001, 'category' => 'C', 'price' => 10],
+            ['id' => 1002, 'category' => 'A', 'price' => 25],
+            ['id' => 1003, 'category' => 'B', 'price' => 10],
+        ];
+
+        // 確保是array
         if (!is_array($keys)) {
             $keys = (array)$keys;
         }
 
         $key2IsDesc = [];
 
+        // 確保是字串且為 等於desc
         if (is_string($directions)) {
             $isDesc = $directions === 'desc';
             foreach ($keys as $key) {
                 $key2IsDesc[$key] = $isDesc;
             }
+            // key2IsDesc = [0 , 1 , 2];
         } else {
             $i = 0;
             foreach ($keys as $key) {
